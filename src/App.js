@@ -94,7 +94,7 @@ class BooksApp extends React.Component {
 
       if (shelfId === 'none') {
         if (prevState.bookShelfDict[bookId]) {
-          if (confirm('Are you sure to remove this book?')) {
+          if (window.confirm('Are you sure to remove this book?')) {
             delete newDict[bookId];
           } else {
             return {};
