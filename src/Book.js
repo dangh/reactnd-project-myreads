@@ -3,20 +3,29 @@ import PropTypes from 'prop-types';
 
 export default class Book extends React.Component {
   static propTypes = {
-    title: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired,
-    coverUrl: PropTypes.string.isRequired,
-    shelf: PropTypes.string,
+    book: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      author: PropTypes.string.isRequired,
+      coverUrl: PropTypes.string.isRequired
+    }).isRequired,
+    shelfId: PropTypes.string,
     shelfs: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string,
         label: PropTypes.string
       })
-    ).isRequired
+    ).isRequired,
+    moveToShelf: PropTypes.func.isRequired
   };
 
   render() {
-    const {coverUrl, title, author, shelfs} = this.props;
+    const {
+      book: {id, coverUrl, title, author},
+      shelfs,
+      shelfId,
+      moveToShelf
+    } = this.props;
 
     return (
       <div className="book">
@@ -30,7 +39,10 @@ export default class Book extends React.Component {
             }}
           />
           <div className="book-shelf-changer">
-            <select>
+            <select
+              value={shelfId}
+              onChange={e => moveToShelf(id, e.target.value)}
+            >
               <option value="none" disabled>
                 Move to...
               </option>
@@ -39,7 +51,7 @@ export default class Book extends React.Component {
                   {shelf.title}
                 </option>
               ))}
-              <option value="none">None</option>
+              {shelfId && <option value="none">None</option>}
             </select>
           </div>
         </div>
