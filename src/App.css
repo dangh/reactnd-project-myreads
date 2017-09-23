@@ -83,6 +83,7 @@ body, .app {
   font-size: 1.25em;
   border: none;
   outline: none;
+  margin: 0;
 }
 
 .close-search {
