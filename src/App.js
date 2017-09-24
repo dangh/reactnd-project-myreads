@@ -89,6 +89,17 @@ class BooksApp extends React.Component {
     ]
   };
 
+  componentDidMount() {
+    const serialized = localStorage.getItem('my-read-db');
+    if (serialized) {
+      this.setState(JSON.parse(serialized));
+    }
+  }
+
+  componentDidUpdate() {
+    localStorage.setItem('my-read-db', JSON.stringify(this.state));
+  }
+
   getBooksInShelf = shelfId => {
     const {books, bookShelfDict} = this.state;
     return books.filter(book => bookShelfDict[book.id] === shelfId);
