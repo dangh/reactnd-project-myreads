@@ -32,6 +32,7 @@ export default class SearchPage extends React.Component {
             <input
               type="text"
               placeholder="Search by title or author"
+              autoFocus
               value={query}
               onChange={evt => this.updateQuery(evt.target.value)}
             />
