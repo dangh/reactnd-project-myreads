@@ -7,16 +7,12 @@ export default class Book extends React.Component {
     book: BookType.isRequired,
     shelfId: PropTypes.string,
     shelfs: PropTypes.arrayOf(ShelfType).isRequired,
-    moveToShelf: PropTypes.func.isRequired
+    moveBookToShelf: PropTypes.func.isRequired
   };
 
   render() {
-    const {
-      book: {id, title, authors, imageLinks},
-      shelfs,
-      shelfId,
-      moveToShelf
-    } = this.props;
+    const {book, shelfs, shelfId, moveBookToShelf} = this.props;
+    const {title, authors, imageLinks} = book;
 
     return (
       <div className="book">
@@ -31,7 +27,7 @@ export default class Book extends React.Component {
           <div className="book-shelf-changer">
             <select
               value={shelfId}
-              onChange={e => moveToShelf(id, e.target.value)}
+              onChange={e => moveBookToShelf(book, e.target.value)}
             >
               <option value="none" disabled>
                 Move to...

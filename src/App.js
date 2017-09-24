@@ -96,24 +96,30 @@ class BooksApp extends React.Component {
 
   getShelfByBook = bookId => this.state.bookShelfDict[bookId] || 'none';
 
-  moveBookToShelf = (bookId, shelfId) => {
+  moveBookToShelf = (book, shelfId) => {
     this.setState(prevState => {
       const newDict = {...prevState.bookShelfDict};
+      let newBooks = [...prevState.books];
 
       if (shelfId === 'none') {
-        if (prevState.bookShelfDict[bookId]) {
+        if (prevState.bookShelfDict[book.id]) {
           if (window.confirm('Are you sure to remove this book?')) {
-            delete newDict[bookId];
+            delete newDict[book.id];
+            newBooks = newBooks.filter(b => b.id !== book.id);
           } else {
             return {};
           }
         }
       } else {
-        newDict[bookId] = shelfId;
+        newDict[book.id] = shelfId;
+        if (newBooks.find(b => b.id === book.id) == null) {
+          newBooks = [...newBooks, book];
+        }
       }
 
       return {
-        bookShelfDict: newDict
+        bookShelfDict: newDict,
+        books: newBooks
       };
     });
   };

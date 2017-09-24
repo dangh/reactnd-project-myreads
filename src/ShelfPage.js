@@ -29,7 +29,7 @@ export default class ShelfPage extends React.Component {
                     book={book}
                     shelfId={shelf.id}
                     shelfs={shelfs}
-                    moveToShelf={moveBookToShelf}
+                    moveBookToShelf={moveBookToShelf}
                   />
                 ))}
               </Bookshelf>
