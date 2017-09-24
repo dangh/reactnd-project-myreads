@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 export const BookType = PropTypes.shape({
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  coverUrl: PropTypes.string.isRequired
+  authors: PropTypes.arrayOf(PropTypes.string),
+  imageLinks: PropTypes.shape({
+    thumbnail: PropTypes.string
+  })
 });
 
 export const ShelfType = PropTypes.shape({

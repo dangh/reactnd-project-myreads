@@ -12,7 +12,7 @@ export default class Book extends React.Component {
 
   render() {
     const {
-      book: {id, coverUrl, title, author},
+      book: {id, title, authors, imageLinks},
       shelfs,
       shelfId,
       moveToShelf
@@ -24,9 +24,8 @@ export default class Book extends React.Component {
           <div
             className="book-cover"
             style={{
-              width: 128,
-              height: 174,
-              backgroundImage: `url("${coverUrl}")`
+              backgroundImage: `url("${(imageLinks && imageLinks.thumbnail) ||
+                'https://books.google.com.sg/googlebooks/images/no_cover_thumb.gif'}")`
             }}
           />
           <div className="book-shelf-changer">
@@ -47,7 +46,11 @@ export default class Book extends React.Component {
           </div>
         </div>
         <div className="book-title">{title}</div>
-        <div className="book-authors">{author}</div>
+        {authors && (
+          <div className="book-authors">
+            {authors.map(author => <div key={author}>{author}</div>)}
+          </div>
+        )}
       </div>
     );
   }

@@ -1,11 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import * as BooksAPI from './BooksAPI';
+import Book from './Book';
+import {ShelfType} from './types';
 
 export default class SearchPage extends React.Component {
-  static propTypes = {};
+  static propTypes = {
+    shelfs: PropTypes.arrayOf(ShelfType).isRequired,
+    getShelfByBook: PropTypes.func.isRequired,
+    moveBookToShelf: PropTypes.func.isRequired
+  };
+
+  state = {
+    query: '',
+    querying: false,
+    books: []
+  };
 
   render() {
+    const {shelfs, getShelfByBook, moveBookToShelf} = this.props;
+    const {query, books, querying} = this.state;
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -13,21 +28,49 @@ export default class SearchPage extends React.Component {
             Close
           </Link>
           <div className="search-books-input-wrapper">
-            {/*
-              NOTES: The search from BooksAPI is limited to a particular set of search terms.
-              You can find these search terms here:
-              https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-              However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-              you don't find a specific author or title. Every search is limited by search terms.
-            */}
-            <input type="text" placeholder="Search by title or author" />
+            <input
+              type="text"
+              placeholder="Search by title or author"
+              value={query}
+              onChange={evt => this.updateQuery(evt.target.value)}
+            />
           </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid" />
+          {querying && <div>Searching...</div>}
+          {query && !querying && !books.length && <div>No books found!</div>}
+          {!querying && (
+            <ol className="books-grid">
+              {books.map(book => (
+                <li key={book.id}>
+                  <Book
+                    book={book}
+                    shelfId={getShelfByBook(book.id)}
+                    shelfs={shelfs}
+                    moveToShelf={moveBookToShelf}
+                  />
+                </li>
+              ))}
+            </ol>
+          )}
         </div>
       </div>
     );
   }
+
+  updateQuery = query => {
+    this.setState({query});
+    this.searchBooks(query);
+  };
+
+  searchBooks = query => {
+    this.setState({querying: true});
+    BooksAPI.search(query, 10).then(books => {
+      if (Array.isArray(books)) {
+        this.setState({books, querying: false});
+      } else {
+        this.setState({books: [], querying: false});
+      }
+    });
+  };
 }
