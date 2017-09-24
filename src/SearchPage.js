@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 import Book from './Book';
 import {ShelfType} from './types';
+import _ from 'lodash';
 
 export default class SearchPage extends React.Component {
   static propTypes = {
@@ -59,12 +60,19 @@ export default class SearchPage extends React.Component {
   }
 
   updateQuery = query => {
-    this.setState({query});
+    this.setState({query, querying: true});
     this.searchBooks(query);
   };
 
-  searchBooks = query => {
-    this.setState({querying: true});
+  searchBooks = _.debounce(query => {
+    if (!query) {
+      this.setState({
+        querying: false,
+        books: []
+      });
+      return;
+    }
+
     BooksAPI.search(query, 10).then(books => {
       if (Array.isArray(books)) {
         this.setState({books, querying: false});
@@ -72,5 +80,5 @@ export default class SearchPage extends React.Component {
         this.setState({books: [], querying: false});
       }
     });
-  };
+  }, 350);
 }
