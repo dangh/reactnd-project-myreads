@@ -37,7 +37,7 @@ export default class Book extends React.Component {
                   {shelf.title}
                 </option>
               ))}
-              {shelfId && <option value="none">None</option>}
+              <option value="none">None</option>
             </select>
           </div>
         </div>

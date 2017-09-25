@@ -47,7 +47,7 @@ export default class SearchPage extends React.Component {
                 <li key={book.id}>
                   <Book
                     book={book}
-                    shelfId={getShelfByBook(book.id)}
+                    shelfId={getShelfByBook(book)}
                     shelfs={shelfs}
                     moveBookToShelf={moveBookToShelf}
                   />
