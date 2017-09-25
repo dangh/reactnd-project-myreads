@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 import Book from './Book';
 import {ShelfType} from './types';
-import _ from 'lodash';
+import debounce from 'lodash/debounce';
 
 export default class SearchPage extends React.Component {
   static propTypes = {
@@ -65,7 +65,7 @@ export default class SearchPage extends React.Component {
     this.searchBooks(query);
   };
 
-  searchBooks = _.debounce(query => {
+  searchBooks = debounce(query => {
     if (!query) {
       this.setState({
         querying: false,
