@@ -8,7 +8,7 @@ import _ from 'lodash';
 
 export default class SearchPage extends React.Component {
   static propTypes = {
-    shelfs: PropTypes.arrayOf(ShelfType).isRequired,
+    shelves: PropTypes.arrayOf(ShelfType).isRequired,
     getShelfByBook: PropTypes.func.isRequired,
     moveBookToShelf: PropTypes.func.isRequired
   };
@@ -20,7 +20,7 @@ export default class SearchPage extends React.Component {
   };
 
   render() {
-    const {shelfs, getShelfByBook, moveBookToShelf} = this.props;
+    const {shelves, getShelfByBook, moveBookToShelf} = this.props;
     const {query, books, querying} = this.state;
     return (
       <div className="search-books">
@@ -48,7 +48,7 @@ export default class SearchPage extends React.Component {
                   <Book
                     book={book}
                     shelfId={getShelfByBook(book)}
-                    shelfs={shelfs}
+                    shelves={shelves}
                     moveBookToShelf={moveBookToShelf}
                   />
                 </li>

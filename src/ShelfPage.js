@@ -7,13 +7,13 @@ import {ShelfType} from './types';
 
 export default class ShelfPage extends React.Component {
   static propTypes = {
-    shelfs: PropTypes.arrayOf(ShelfType).isRequired,
+    shelves: PropTypes.arrayOf(ShelfType).isRequired,
     getBooksInShelf: PropTypes.func.isRequired,
     moveBookToShelf: PropTypes.func.isRequired
   };
 
   render() {
-    const {shelfs, getBooksInShelf, moveBookToShelf} = this.props;
+    const {shelves, getBooksInShelf, moveBookToShelf} = this.props;
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -21,14 +21,14 @@ export default class ShelfPage extends React.Component {
         </div>
         <div className="list-books-content">
           <div>
-            {shelfs.map(shelf => (
+            {shelves.map(shelf => (
               <Bookshelf key={shelf.id} title={shelf.title}>
                 {getBooksInShelf(shelf.id).map(book => (
                   <Book
                     key={book.id}
                     book={book}
                     shelfId={shelf.id}
-                    shelfs={shelfs}
+                    shelves={shelves}
                     moveBookToShelf={moveBookToShelf}
                   />
                 ))}

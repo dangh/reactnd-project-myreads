@@ -5,7 +5,7 @@ import SearchPage from './SearchPage';
 import ShelfPage from './ShelfPage';
 import * as BooksAPI from './BooksAPI';
 
-const shelfs = [
+const shelves = [
   {id: 'currentlyReading', title: 'Currently Reading'},
   {id: 'wantToRead', title: 'Want to Read'},
   {id: 'read', title: 'Read'}
@@ -100,7 +100,7 @@ class BooksApp extends React.Component {
           path="/search"
           render={() => (
             <SearchPage
-              shelfs={shelfs}
+              shelves={shelves}
               getShelfByBook={this.getShelfByBook}
               moveBookToShelf={this.moveBookToShelf}
             />
@@ -111,7 +111,7 @@ class BooksApp extends React.Component {
           path="/"
           render={() => (
             <ShelfPage
-              shelfs={shelfs}
+              shelves={shelves}
               getBooksInShelf={this.getBooksInShelf}
               moveBookToShelf={this.moveBookToShelf}
             />

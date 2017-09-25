@@ -6,12 +6,12 @@ export default class Book extends React.Component {
   static propTypes = {
     book: BookType.isRequired,
     shelfId: PropTypes.string,
-    shelfs: PropTypes.arrayOf(ShelfType).isRequired,
+    shelves: PropTypes.arrayOf(ShelfType).isRequired,
     moveBookToShelf: PropTypes.func.isRequired
   };
 
   render() {
-    const {book, shelfs, shelfId, moveBookToShelf} = this.props;
+    const {book, shelves, shelfId, moveBookToShelf} = this.props;
     const {title, authors, imageLinks} = book;
 
     return (
@@ -32,7 +32,7 @@ export default class Book extends React.Component {
               <option value="none" disabled>
                 Move to...
               </option>
-              {shelfs.map(shelf => (
+              {shelves.map(shelf => (
                 <option key={shelf.id} value={shelf.id}>
                   {shelf.title}
                 </option>
