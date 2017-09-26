@@ -1,9 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {BookType, ShelfType} from './types';
+import {BookType} from './types';
 import BookShelfChanger from './BookShelfChanger';
 
-function Book({book, shelves, shelfId, moveBookToShelf}) {
+function Book({book}) {
   const {title, authors, imageLinks} = book;
   return (
     <div className="book">
@@ -15,12 +14,7 @@ function Book({book, shelves, shelfId, moveBookToShelf}) {
               'https://books.google.com.sg/googlebooks/images/no_cover_thumb.gif'}")`
           }}
         />
-        <BookShelfChanger
-          book={book}
-          shelfId={shelfId}
-          shelves={shelves}
-          moveBookToShelf={moveBookToShelf}
-        />
+        <BookShelfChanger book={book} />
       </div>
       <div className="book-title">{title}</div>
       {authors && (
@@ -33,10 +27,7 @@ function Book({book, shelves, shelfId, moveBookToShelf}) {
 }
 
 Book.propTypes = {
-  book: BookType.isRequired,
-  shelfId: PropTypes.string,
-  shelves: PropTypes.arrayOf(ShelfType).isRequired,
-  moveBookToShelf: PropTypes.func.isRequired
+  book: BookType.isRequired
 };
 
 export default Book;

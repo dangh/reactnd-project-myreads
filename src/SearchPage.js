@@ -1,12 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import Book from './Book';
-import {ShelfType} from './types';
 import QueryString from './QueryString';
 import SearchResult from './SearchResult';
 
-function SearchPage({shelves, getShelfByBook, moveBookToShelf}) {
+function SearchPage() {
   return (
     <QueryString>
       {({query, updateQuery}) => (
@@ -36,12 +34,7 @@ function SearchPage({shelves, getShelfByBook, moveBookToShelf}) {
                   <ol className="books-grid">
                     {books.map(book => (
                       <li key={book.id}>
-                        <Book
-                          book={book}
-                          shelfId={getShelfByBook(book)}
-                          shelves={shelves}
-                          moveBookToShelf={moveBookToShelf}
-                        />
+                        <Book book={book} />
                       </li>
                     ))}
                   </ol>
@@ -54,11 +47,5 @@ function SearchPage({shelves, getShelfByBook, moveBookToShelf}) {
     </QueryString>
   );
 }
-
-SearchPage.propTypes = {
-  shelves: PropTypes.arrayOf(ShelfType).isRequired,
-  getShelfByBook: PropTypes.func.isRequired,
-  moveBookToShelf: PropTypes.func.isRequired
-};
 
 export default SearchPage;
