@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {BookType, ShelfType} from './types';
+import BookShelfChanger from './BookShelfChanger';
 
 function Book({book, shelves, shelfId, moveBookToShelf}) {
   const {title, authors, imageLinks} = book;
@@ -14,22 +15,12 @@ function Book({book, shelves, shelfId, moveBookToShelf}) {
               'https://books.google.com.sg/googlebooks/images/no_cover_thumb.gif'}")`
           }}
         />
-        <div className="book-shelf-changer">
-          <select
-            value={shelfId}
-            onChange={e => moveBookToShelf(book, e.target.value)}
-          >
-            <option value="none" disabled>
-              Move to...
-            </option>
-            {shelves.map(shelf => (
-              <option key={shelf.id} value={shelf.id}>
-                {shelf.title}
-              </option>
-            ))}
-            <option value="none">None</option>
-          </select>
-        </div>
+        <BookShelfChanger
+          book={book}
+          shelfId={shelfId}
+          shelves={shelves}
+          moveBookToShelf={moveBookToShelf}
+        />
       </div>
       <div className="book-title">{title}</div>
       {authors && (
